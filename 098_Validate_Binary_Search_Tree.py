@@ -34,6 +34,8 @@ Explanation: The root node's value is 5 but its right child's value is 4.
 #         self.val = val
 #         self.left = left
 #         self.right = right
+
+### recursion
 class Solution:
     def isValidBST(self, root: TreeNode) -> bool:
         self.res = []
@@ -51,5 +53,29 @@ class Solution:
         if node.right:
             if not self.inorder(node.right):
                 return False
+        return True
+            
+### iterative
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def isValidBST(self, root: TreeNode) -> bool:
+        stack = [[root, 0]]
+        res = []
+        while len(stack) > 0:
+            node, visited = stack.pop()
+            if node:
+                if visited:
+                    if len(res) > 0 and node.val <= res[-1]:
+                        return False
+                    res.append(node.val)
+                else:
+                    stack.append([node.right,0])
+                    stack.append([node, 1])
+                    stack.append([node.left, 0])
         return True
             
