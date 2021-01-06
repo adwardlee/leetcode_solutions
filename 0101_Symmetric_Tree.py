@@ -24,6 +24,9 @@ But the following [1,2,2,null,3,null,3] is not:
 #         self.val = val
 #         self.left = left
 #         self.right = right
+'''
+iterative
+'''
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
         stack = [[root]]
@@ -43,3 +46,17 @@ class Solution:
             if values != values[::-1]:
                  return False
         return True
+'''
+recursive
+'''
+class Solution:
+    def isSymmetric(self, root: TreeNode) -> bool:
+        return self.checkTree(root, root)
+        
+    def checkTree(self, left, right):
+        if left == None and right == None:
+            return True
+        elif left == None or right == None:
+            return False
+        else:
+            return left.val == right.val and self.checkTree(left.left, right.right) and self.checkTree(left.right, right.left)
